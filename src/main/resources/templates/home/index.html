@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Trang chủ - Website Bán Thiệp Trực Tuyến</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="jumbotron bg-primary text-white p-5 rounded">
+                    <div class="container text-center">
+                        <h1 class="display-4">
+                            <i class="fas fa-gift me-3"></i>Website Bán Thiệp Trực Tuyến
+                        </h1>
+                        <p class="lead">Nơi bạn có thể tìm thấy những tấm thiệp đẹp nhất cho mọi dịp đặc biệt</p>
+                        <div th:if="${!isLoggedIn}">
+                            <a class="btn btn-light btn-lg me-3" href="/auth/register">
+                                <i class="fas fa-user-plus me-2"></i>Đăng ký ngay
+                            </a>
+                            <a class="btn btn-outline-light btn-lg" href="/auth/login">
+                                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                            </a>
+                        </div>
+                        <div th:if="${isLoggedIn}">
+                            <p class="mb-3">Chào mừng bạn quay trở lại, <strong th:text="${userEmail}">user@example.com</strong>!</p>
+                            <a class="btn btn-light btn-lg" href="/products">
+                                <i class="fas fa-shopping-bag me-2"></i>Bắt đầu mua sắm
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Tại sao chọn chúng tôi?</h2>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-palette fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Thiết kế đẹp mắt</h5>
+                        <p class="card-text">Hàng trăm thiệp với thiết kế độc đáo, phù hợp cho mọi dịp đặc biệt.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-shipping-fast fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Giao hàng nhanh</h5>
+                        <p class="card-text">Giao hàng trong 24h tại TP.HCM và 2-3 ngày tại các tỉnh thành khác.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-shield-alt fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Bảo mật tuyệt đối</h5>
+                        <p class="card-text">Thông tin cá nhân và thanh toán được bảo mật với công nghệ tiên tiến.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categories Preview -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="text-center mb-4">Danh mục thiệp nổi bật</h2>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-birthday-cake fa-3x text-pink mb-3"></i>
+                        <h5 class="card-title">Thiệp Sinh Nhật</h5>
+                        <p class="card-text">Thiệp chúc mừng sinh nhật với nhiều thiết kế đẹp</p>
+                        <a href="/categories/birthday" class="btn btn-outline-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-heart fa-3x text-danger mb-3"></i>
+                        <h5 class="card-title">Thiệp Valentine</h5>
+                        <p class="card-text">Thiệp tình yêu cho ngày Valentine</p>
+                        <a href="/categories/valentine" class="btn btn-outline-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-tree fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Thiệp Giáng Sinh</h5>
+                        <p class="card-text">Thiệp chúc mừng Giáng Sinh và Năm Mới</p>
+                        <a href="/categories/christmas" class="btn btn-outline-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-graduation-cap fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Thiệp Tốt Nghiệp</h5>
+                        <p class="card-text">Thiệp chúc mừng tốt nghiệp</p>
+                        <a href="/categories/graduation" class="btn btn-outline-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-light">
+                    <div class="card-body text-center p-5">
+                        <h3 class="mb-3">Sẵn sàng tìm thiệp hoàn hảo?</h3>
+                        <p class="lead mb-4">Khám phá bộ sưu tập thiệp đa dạng của chúng tôi ngay hôm nay!</p>
+                        <a href="/products" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-search me-2"></i>Tìm kiếm thiệp
+                        </a>
+                        <a href="/categories" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-tags me-2"></i>Xem danh mục
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Admin Dashboard - Website Bán Thiệp Trực Tuyến</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4">
+                    <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+                </h2>
+            </div>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title" th:text="${totalUsers}">0</h4>
+                                <p class="card-text">Tổng người dùng</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/admin/users" class="text-white text-decoration-none">
+                            <i class="fas fa-arrow-right me-1"></i>Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title" th:text="${regularUsers}">0</h4>
+                                <p class="card-text">Người dùng thường</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-user fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/admin/users?role=USER" class="text-white text-decoration-none">
+                            <i class="fas fa-arrow-right me-1"></i>Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title" th:text="${adminUsers}">0</h4>
+                                <p class="card-text">Quản trị viên</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-user-shield fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/admin/users?role=ADMIN" class="text-dark text-decoration-none">
+                            <i class="fas fa-arrow-right me-1"></i>Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4 class="card-title">0</h4>
+                                <p class="card-text">Tổng đơn hàng</p>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="fas fa-shopping-cart fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/admin/orders" class="text-white text-decoration-none">
+                            <i class="fas fa-arrow-right me-1"></i>Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-bolt me-2"></i>Thao tác nhanh
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <a href="/admin/products" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-gift fa-2x d-block mb-2"></i>
+                                    Quản lý thiệp
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="/admin/categories" class="btn btn-outline-success w-100">
+                                    <i class="fas fa-tags fa-2x d-block mb-2"></i>
+                                    Quản lý danh mục
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="/admin/users" class="btn btn-outline-warning w-100">
+                                    <i class="fas fa-users fa-2x d-block mb-2"></i>
+                                    Quản lý người dùng
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="/admin/orders" class="btn btn-outline-info w-100">
+                                    <i class="fas fa-list-alt fa-2x d-block mb-2"></i>
+                                    Quản lý đơn hàng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activities -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-clock me-2"></i>Hoạt động gần đây
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Người dùng mới đăng ký</h6>
+                                    <small>2 giờ trước</small>
+                                </div>
+                                <p class="mb-1">user@example.com đã đăng ký tài khoản</p>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Đơn hàng mới</h6>
+                                    <small>4 giờ trước</small>
+                                </div>
+                                <p class="mb-1">Đơn hàng #001 đã được tạo</p>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Thiệp mới được thêm</h6>
+                                    <small>6 giờ trước</small>
+                                </div>
+                                <p class="mb-1">Thiệp "Sinh nhật hoa hồng" đã được thêm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>Thống kê nhanh
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="quickStatsChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Additional JS for charts -->
+    <div th:fragment="additional-js">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Quick stats chart
+            const ctx = document.getElementById('quickStatsChart').getContext('2d');
+            const quickStatsChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Người dùng thường', 'Quản trị viên'],
+                    datasets: [{
+                        data: [/*[[${regularUsers}]]*/ 10, /*[[${adminUsers}]]*/ 2],
+                        backgroundColor: [
+                            'rgba(40, 167, 69, 0.8)',
+                            'rgba(255, 193, 7, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(40, 167, 69, 1)',
+                            'rgba(255, 193, 7, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

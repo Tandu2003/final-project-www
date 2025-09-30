@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Thông tin cá nhân - Website Bán Thiệp Trực Tuyến</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-user me-2"></i>Thông tin cá nhân
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <!-- User Info -->
+                            <div class="col-md-8">
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <strong><i class="fas fa-envelope me-1"></i>Email:</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <span th:text="${user.email}">user@example.com</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <strong><i class="fas fa-user me-1"></i>Họ tên:</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <span th:text="${user.fullName}">Nguyễn Văn A</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <strong><i class="fas fa-phone me-1"></i>Số điện thoại:</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <span th:text="${user.phone ?: 'Chưa cập nhật'}">0987654321</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <strong><i class="fas fa-map-marker-alt me-1"></i>Địa chỉ:</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <span th:text="${user.address ?: 'Chưa cập nhật'}">123 Main Street</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <strong><i class="fas fa-calendar me-1"></i>Ngày đăng ký:</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <span th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy HH:mm')}">01/01/2024 10:00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-sm-3">
+                                        <strong><i class="fas fa-shield-alt me-1"></i>Vai trò:</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <span class="badge bg-info" th:text="${user.role}">USER</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- User Avatar -->
+                            <div class="col-md-4 text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-user-circle fa-8x text-muted"></i>
+                                </div>
+                                <p class="text-muted">Chưa có hình đại diện</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="row">
+                            <div class="col-12">
+                                <hr>
+                                <div class="d-flex gap-2">
+                                    <a href="/user/profile/edit" class="btn btn-primary">
+                                        <i class="fas fa-edit me-1"></i>Chỉnh sửa thông tin
+                                    </a>
+                                    <a href="/user/change-password" class="btn btn-warning">
+                                        <i class="fas fa-key me-1"></i>Đổi mật khẩu
+                                    </a>
+                                    <a href="/orders" class="btn btn-info">
+                                        <i class="fas fa-list me-1"></i>Xem đơn hàng
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shopping-cart fa-2x mb-2"></i>
+                                <h5 class="card-title">Giỏ hàng</h5>
+                                <p class="card-text">Xem và quản lý giỏ hàng</p>
+                                <a href="/cart" class="btn btn-light">Xem giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <i class="fas fa-list-alt fa-2x mb-2"></i>
+                                <h5 class="card-title">Đơn hàng</h5>
+                                <p class="card-text">Lịch sử đơn hàng của bạn</p>
+                                <a href="/orders" class="btn btn-light">Xem đơn hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <i class="fas fa-heart fa-2x mb-2"></i>
+                                <h5 class="card-title">Yêu thích</h5>
+                                <p class="card-text">Thiệp bạn đã yêu thích</p>
+                                <a href="/favorites" class="btn btn-light">Xem yêu thích</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

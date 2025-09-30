@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Chỉnh sửa thông tin cá nhân - Website Bán Thiệp Trực Tuyến</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-warning text-dark">
+                        <h4 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>Chỉnh sửa thông tin cá nhân
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form th:action="@{/user/profile/edit}" th:object="${userDTO}" method="post">
+                            <div class="row">
+                                <!-- Full Name -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="fullName" class="form-label">
+                                        <i class="fas fa-user me-1"></i>Họ tên <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="fullName" 
+                                           th:field="*{fullName}"
+                                           placeholder="Nhập họ tên đầy đủ"
+                                           required>
+                                    <div th:if="${#fields.hasErrors('fullName')}" class="text-danger">
+                                        <small th:errors="*{fullName}"></small>
+                                    </div>
+                                </div>
+                                
+                                <!-- Phone -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">
+                                        <i class="fas fa-phone me-1"></i>Số điện thoại
+                                    </label>
+                                    <input type="tel" 
+                                           class="form-control" 
+                                           id="phone" 
+                                           th:field="*{phone}"
+                                           placeholder="Nhập số điện thoại">
+                                    <div th:if="${#fields.hasErrors('phone')}" class="text-danger">
+                                        <small th:errors="*{phone}"></small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Address -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Địa chỉ
+                                </label>
+                                <textarea class="form-control" 
+                                          id="address" 
+                                          th:field="*{address}"
+                                          rows="3"
+                                          placeholder="Nhập địa chỉ đầy đủ"></textarea>
+                                <div th:if="${#fields.hasErrors('address')}" class="text-danger">
+                                    <small th:errors="*{address}"></small>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i>Lưu thay đổi
+                                </button>
+                                <a href="/user/profile" class="btn btn-secondary">
+                                    <i class="fas fa-times me-1"></i>Hủy
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Security Notice -->
+                <div class="card mt-3">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Thông tin bảo mật
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-2"><strong>Email:</strong> Không thể thay đổi email sau khi đăng ký.</p>
+                        <p class="mb-2"><strong>Mật khẩu:</strong> Để đổi mật khẩu, vui lòng sử dụng chức năng "Đổi mật khẩu".</p>
+                        <p class="mb-0"><strong>Dữ liệu:</strong> Thông tin của bạn được bảo mật và không chia sẻ với bên thứ ba.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

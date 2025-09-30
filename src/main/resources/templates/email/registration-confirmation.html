@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chào mừng bạn đến với Website Bán Thiệp Trực Tuyến</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .welcome-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .info-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 30%;
+        }
+        .button {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-gift"></i> Website Bán Thiệp Trực Tuyến</h1>
+        <p>Chào mừng bạn đến với thế giới thiệp chúc mừng!</p>
+    </div>
+    
+    <div class="content">
+        <div class="welcome-box">
+            <h2>🎉 Chào mừng <span th:text="${user.fullName}">Nguyễn Văn A</span>!</h2>
+            <p>Cảm ơn bạn đã đăng ký tài khoản tại Website Bán Thiệp Trực Tuyến. Tài khoản của bạn đã được tạo thành công!</p>
+        </div>
+        
+        <h3>📋 Thông tin tài khoản của bạn:</h3>
+        <table class="info-table">
+            <tr>
+                <td>Email:</td>
+                <td th:text="${user.email}">user@example.com</td>
+            </tr>
+            <tr>
+                <td>Họ tên:</td>
+                <td th:text="${user.fullName}">Nguyễn Văn A</td>
+            </tr>
+            <tr>
+                <td>Ngày đăng ký:</td>
+                <td th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy HH:mm')}">01/01/2024 10:00</td>
+            </tr>
+            <tr>
+                <td>Trạng thái:</td>
+                <td><span style="color: #28a745; font-weight: bold;">✓ Đã kích hoạt</span></td>
+            </tr>
+        </table>
+        
+        <h3>🚀 Bạn có thể làm gì ngay bây giờ:</h3>
+        <ul>
+            <li>🛍️ <strong>Duyệt thiệp:</strong> Khám phá hàng trăm thiệp chúc mừng đẹp mắt</li>
+            <li>🛒 <strong>Mua sắm:</strong> Thêm thiệp vào giỏ hàng và đặt hàng</li>
+            <li>👤 <strong>Quản lý tài khoản:</strong> Cập nhật thông tin cá nhân</li>
+            <li>📦 <strong>Theo dõi đơn hàng:</strong> Xem lịch sử và trạng thái đơn hàng</li>
+        </ul>
+        
+        <div style="text-align: center;">
+            <a href="/" class="button">Bắt đầu mua sắm ngay!</a>
+        </div>
+        
+        <h3>💡 Mẹo sử dụng:</h3>
+        <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <p><strong>🔍 Tìm kiếm thiệp:</strong> Sử dụng thanh tìm kiếm để tìm thiệp theo từ khóa</p>
+            <p><strong>🏷️ Lọc theo danh mục:</strong> Chọn danh mục phù hợp để thu hẹp kết quả</p>
+            <p><strong>💳 Thanh toán an toàn:</strong> Hệ thống thanh toán được bảo mật tuyệt đối</p>
+        </div>
+        
+        <div class="social-links">
+            <h4>📱 Kết nối với chúng tôi:</h4>
+            <a href="#">Facebook</a> |
+            <a href="#">Instagram</a> |
+            <a href="#">Twitter</a>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Website Bán Thiệp Trực Tuyến</strong></p>
+            <p>📧 Email: contact@greetingcards.com | 📞 Hotline: 1900-xxxx</p>
+            <p>© 2024 Website Bán Thiệp Trực Tuyến. All rights reserved.</p>
+            <p><small>Email này được gửi tự động, vui lòng không trả lời.</small></p>
+        </div>
+    </div>
+</body>
+</html>

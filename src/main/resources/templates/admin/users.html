@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: layout(~{::title}, ~{::content})}">
+<head>
+    <title>Quản lý người dùng - Admin Dashboard</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        <i class="fas fa-users me-2"></i>Quản lý người dùng
+                    </h2>
+                    <div>
+                        <a href="/admin/users/with-orders" class="btn btn-outline-success me-2">
+                            <i class="fas fa-shopping-cart me-1"></i>Có đơn hàng
+                        </a>
+                        <a href="/admin/users/without-orders" class="btn btn-outline-warning">
+                            <i class="fas fa-user-times me-1"></i>Chưa có đơn hàng
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="get" class="row g-3">
+                            <div class="col-md-4">
+                                <label for="search" class="form-label">Tìm kiếm</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="search" 
+                                       name="search" 
+                                       th:value="${search}"
+                                       placeholder="Tìm theo tên hoặc email">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="role" class="form-label">Vai trò</label>
+                                <select class="form-select" id="role" name="role">
+                                    <option value="">Tất cả</option>
+                                    <option value="USER" th:selected="${role == 'USER'}">Người dùng</option>
+                                    <option value="ADMIN" th:selected="${role == 'ADMIN'}">Quản trị viên</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="sortBy" class="form-label">Sắp xếp theo</label>
+                                <select class="form-select" id="sortBy" name="sortBy">
+                                    <option value="createdAt" th:selected="${sortBy == 'createdAt'}">Ngày tạo</option>
+                                    <option value="fullName" th:selected="${sortBy == 'fullName'}">Tên</option>
+                                    <option value="email" th:selected="${sortBy == 'email'}">Email</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="sortDir" class="form-label">Thứ tự</label>
+                                <select class="form-select" id="sortDir" name="sortDir">
+                                    <option value="desc" th:selected="${sortDir == 'desc'}">Giảm dần</option>
+                                    <option value="asc" th:selected="${sortDir == 'asc'}">Tăng dần</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search me-1"></i>Tìm kiếm
+                                </button>
+                                <a href="/admin/users" class="btn btn-secondary">
+                                    <i class="fas fa-refresh me-1"></i>Làm mới
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Users Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-list me-2"></i>Danh sách người dùng
+                            <span class="badge bg-primary ms-2" th:text="${totalElements}">0</span>
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Email</th>
+                                        <th>Họ tên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Vai trò</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="user : ${users.content}">
+                                        <td th:text="${user.id}">1</td>
+                                        <td th:text="${user.email}">user@example.com</td>
+                                        <td th:text="${user.fullName}">Nguyễn Văn A</td>
+                                        <td th:text="${user.phone ?: 'Chưa cập nhật'}">0987654321</td>
+                                        <td>
+                                            <span class="badge" 
+                                                  th:classappend="${user.role == 'ADMIN'} ? 'bg-warning' : 'bg-info'"
+                                                  th:text="${user.role}">USER</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge" 
+                                                  th:classappend="${user.isActive} ? 'bg-success' : 'bg-danger'"
+                                                  th:text="${user.isActive} ? 'Hoạt động' : 'Vô hiệu hóa'">Hoạt động</span>
+                                        </td>
+                                        <td th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy')}">01/01/2024</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <a th:href="@{/admin/users/{id}(id=${user.id})}" 
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a th:href="@{/admin/users/{id}/edit(id=${user.id})}" 
+                                                   class="btn btn-sm btn-outline-warning">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-outline-secondary"
+                                                        th:onclick="'toggleStatus(' + ${user.id} + ')'">
+                                                    <i class="fas fa-toggle-on" th:if="${user.isActive}"></i>
+                                                    <i class="fas fa-toggle-off" th:unless="${user.isActive}"></i>
+                                                </button>
+                                                <button type="button" 
+                                                        class="btn btn-sm btn-outline-danger"
+                                                        th:onclick="'deleteUser(' + ${user.id} + ')'">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${users.content.isEmpty()}">
+                                        <td colspan="8" class="text-center py-4">
+                                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                            <p class="text-muted">Không có người dùng nào</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="card-footer" th:if="${totalPages > 1}">
+                        <nav aria-label="User pagination">
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/admin/users(page=${currentPage - 1}, search=${search}, role=${role}, sortBy=${sortBy}, sortDir=${sortDir})}">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                
+                                <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" 
+                                    class="page-item" 
+                                    th:classappend="${pageNum == currentPage} ? 'active'">
+                                    <a class="page-link" 
+                                       th:href="@{/admin/users(page=${pageNum}, search=${search}, role=${role}, sortBy=${sortBy}, sortDir=${sortDir})}"
+                                       th:text="${pageNum + 1}">1</a>
+                                </li>
+                                
+                                <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                    <a class="page-link" th:href="@{/admin/users(page=${currentPage + 1}, search=${search}, role=${role}, sortBy=${sortBy}, sortDir=${sortDir})}">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Additional JS for user management -->
+    <div th:fragment="additional-js">
+        <script>
+            function toggleStatus(userId) {
+                if (confirm('Bạn có chắc chắn muốn thay đổi trạng thái người dùng này?')) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/admin/users/' + userId + '/toggle-status';
+                    
+                    const csrfToken = document.querySelector('meta[name="_csrf"]');
+                    if (csrfToken) {
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = '_token';
+                        csrfInput.value = csrfToken.content;
+                        form.appendChild(csrfInput);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            }
+            
+            function deleteUser(userId) {
+                if (confirm('Bạn có chắc chắn muốn xóa người dùng này? Hành động này không thể hoàn tác!')) {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/admin/users/' + userId + '/delete';
+                    
+                    const csrfToken = document.querySelector('meta[name="_csrf"]');
+                    if (csrfToken) {
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = '_token';
+                        csrfInput.value = csrfToken.content;
+                        form.appendChild(csrfInput);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
